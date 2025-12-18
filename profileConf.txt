@@ -1,0 +1,28 @@
+oh-my-posh init pwsh --config 'C:\Users\Martin\.posh\themes\illusi0n.omp.json'| Invoke-Expression
+
+import-module terminal-icons
+
+Set-PSReadLineOption -Colors @{
+    Default       = "#ffffe3"
+    Command       = "#ffffe3"
+    Parameter     = "#c0caf5"
+    String        = "#9ece6a"
+    Operator      = "#89ddff"
+    Variable      = "#bb9af7"
+    Number        = "#ff9e64"
+    Comment       = "#565f89"
+    Error         = "#f7768e"
+}
+
+
+Set-PSReadLineKeyHandler -Key "Ctrl+h" `
+                         -BriefDescription "AlternarVistaPrediccion" `
+                         -LongDescription "Cambia entre vista en línea y lista para las predicciones de PSReadLine" `
+                         -ScriptBlock {
+    $options = Get-PSReadLineOption
+    if ($options.PredictionViewStyle -eq "InlineView") {
+        Set-PSReadLineOption -PredictionViewStyle ListView
+    } else {
+        Set-PSReadLineOption -PredictionViewStyle InlineView
+    }
+}
