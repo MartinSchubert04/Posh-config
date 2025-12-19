@@ -3,13 +3,15 @@
 Pegar config de txt dentro de $PROFILE (cambiar ruta del theme segun corresponda)
 
 ```pwsh
+New-Item -Path $PROFILE -Type File -Force
 notepad $PROFILE
 ```
 
-### Descargar PSReadLine
+### Instalar PSReadLine
 
+** Predictview solo para Powershell 7
 ```pwsh
-Get-Module PSReadLine
+Install-Module PSReadLine -Force -AllowClobber
 ```
 
 ### Iconos:
@@ -20,9 +22,9 @@ Install-module -name terminal-icons -repository PSGallery
 
 ### Fonts:
 
-- Hacker
-- Meslo
-- Fira Code
+- ```pwsh oh-my-posh font install Hack ```
+- ```pswh oh-my-posh font install Meslo ```
+- ```pwsh oh-my-posh font install Fira Code ```
 
 
 ### VS-code settings:
