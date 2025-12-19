@@ -22,7 +22,7 @@ Install-module -name terminal-icons -repository PSGallery
 
 ### Fonts:
 ```pwsh
-  oh-my-posh font install Fira Code
+  oh-my-posh font install Hack
 ```
 Recomendadas:
 - Hack mono
