@@ -9,9 +9,22 @@ notepad $PROFILE
 
 ### Instalar PSReadLine
 
-** Predictview solo para Powershell 7
+\*\* Predictview solo para Powershell 7
+
 ```pwsh
 Install-Module PSReadLine -Force -AllowClobber
+```
+
+### Anifetch
+
+Source [here](https://github.com/Notenlish/anifetch)
+
+```
+winget install chafa ffmpeg fastfetch
+```
+
+```
+pip install anifetch-cli
 ```
 
 ### Iconos:
@@ -21,17 +34,19 @@ Install-module -name terminal-icons -repository PSGallery
 ```
 
 ### Fonts:
+
 ```pwsh
   oh-my-posh font install Hack
 ```
+
 Recomendadas:
+
 - Hack mono
 - Fira code mono
 - Meslo
 - Jetbrains
 
 [more](https://www.nerdfonts.com/)
-
 
 ### VS-code settings:
 
