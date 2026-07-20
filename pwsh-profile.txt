@@ -1,0 +1,55 @@
+# --- Encoding UTF-8 ---
+try {
+    [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
+    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+    $OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+    chcp 65001 > $null
+} catch {}
+
+Clear-Host
+
+# --- Oh My Posh ---
+oh-my-posh init pwsh --config 'C:\Users\Martin\.posh\themes\illusi0n.omp.json' | Invoke-Expression
+
+# --- Terminal Icons (carga diferida) ---
+# Import-Module normal tarda ~440ms y bloquea el arranque.
+# Get-ChildItem ya existe como comando, así que el autoload de PowerShell
+# NO dispara la carga del módulo solo. En cambio, difiere la carga al
+# evento OnIdle: se importa justo después de que el prompt ya está
+# dibujado y esperando input, así el arranque se siente instantáneo.
+$null = Register-EngineEvent -SourceIdentifier PowerShell.OnIdle -MaxTriggerCount 1 -Action {
+    Import-Module Terminal-Icons
+    Unregister-Event -SourceIdentifier PowerShell.OnIdle -ErrorAction SilentlyContinue
+}
+
+# --- Colores PSReadLine ---
+Set-PSReadLineOption -Colors @{
+    Default       = "#ffffe3"
+    Command       = "#ffffe3"
+    Parameter     = "#c0caf5"
+    String        = "#9ece6a"
+    Operator      = "#89ddff"
+    Variable      = "#bb9af7"
+    Number        = "#ff9e64"
+    Comment       = "#565f89"
+    Error         = "#f7768e"
+}
+
+# --- Keybinding para alternar vista de predicciones ---
+Set-PSReadLineKeyHandler -Key "Ctrl+f" `
+                         -BriefDescription "AlternarVistaPrediccion" `
+                         -LongDescription "Cambia entre vista en línea y lista para las predicciones de PSReadLine" `
+                         -ScriptBlock {
+    $options = Get-PSReadLineOption
+    if ($options.PredictionViewStyle -eq "InlineView") {
+        Set-PSReadLineOption -PredictionViewStyle ListView
+    } else {
+        Set-PSReadLineOption -PredictionViewStyle InlineView
+    }
+}
+
+# --- Fastfetch con config explícita (path corregido) ---
+anifetch "C:\Users\Martin\.config\fastfetch\blackhole.mp4" -W 50 -H 20 -ca "--symbols braille --fg-only" --loop 0
+
+# --- Ir al escritorio si arrancamos en $HOME ---
+if ($pwd.path -eq $HOME) { cd desktop }
